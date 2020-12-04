@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create UI Library</title>
+</head>
+<body>
+
+
+<div class="app"></div>
+<div class="about-page"></div>
+
+<script>
+
+
+
+class UILibrary {
+    constructor(ele, initialState = {}, methods = {}){
+    this.ele = document.querySelector(ele);
+    this.state = initialState;
+    this.methods = methods;
+
+    this.renderTemplate()
+}
+
+    updateState(obj) {
+        Object.keys(obj).forEach(variable => {
+        const variableValue = obj[variable]
+        this.state[variable] = variableValue
+});
+    this.renderTemplate();
+}
+render() {
+    return``
+}
+
+renderTemplate() {
+    let template = this.render();
+    Object.keys(this.state).forEach(variable => {
+        const variableValue = this.state[variable]
+        template = template.replace(new RegExp(`{{${variable}}}`, 'g'), variableValue)
+    });
+    this.ele.innerHTML = template
+            }
+        }
+    class HOME extends UILibrary {
+        constructor(ele, state, methods){
+            super(ele, state, methods)
+            
+            setTimeout(() => {
+                this.updateState({
+                    siteName: "GOOGLE",
+                    date: "September 4, 1998, Menlo Park, California, United States"
+        })
+    },3000);
+
+            setTimeout(() => {
+                this.updateState({
+                    siteName: "PEXELS",
+                    date: "12 March, 2011"
+
+            })
+        },3000);
+    }
+
+            render(){
+            return`<h1> Welcome to {{siteName}}</div> <br> <h2>This search engine was found in {{date}}</h2>`
+        
+        }
+    }
+
+    class About extends UILibrary {
+        render(){
+            return`
+            <br><br>
+            <div> Click <a href="">here</a> Learn More About Us</div> <i class="fa.fab facebook"></i>`
+        }
+    }
+
+    const app = new HOME(".app",{
+        siteName:"Facebook.com",
+        date : "June 12 2005"
+});
+const about = new About(".about-page",{
+}, {})
+
+</script>
+
+</body>
+</html>
